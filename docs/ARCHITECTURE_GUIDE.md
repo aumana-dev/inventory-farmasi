@@ -1,583 +1,322 @@
-# 📚 Guía Completa: Cómo Identificar y Elegir Arquitecturas de Software
+# Arquitectura de Software: Decisiones y Patrones
 
-Esta es la respuesta completa a tu pregunta: **"¿Hay un manual para identificar y hacer ese tipo de cosas?"**
+Respuesta a la pregunta: "¿Hay un manual para identificar y hacer ese tipo de cosas?"
 
----
-
-## 🎯 LA LECCIÓN MÁS IMPORTANTE
-
-Antes de elegir tecnología, **identifica tu problema**, no la solución.
-
-```
-INCORRECTO:
-"Quiero usar React" → Busca un proyecto para React
-
-CORRECTO:
-"Necesito una app con datos en tiempo real" → React es UNA opción
-```
+La respuesta es no hay un manual único porque cada contexto es diferente. Pero hay un **proceso de decisión** que funciona.
 
 ---
 
-## 1️⃣ PRIMER PASO: Entender tu Requisito
+## El Primer Principio
 
-### Matriz de Decisión
+No elijas tecnología. Elige el patrón que resuelve tu problema, y la tecnología es secundaria.
 
-Responde estas preguntas:
-
-```
-┌─────────────────────────────────────────────────────┐
-│ 1. ¿Cuál es el tipo de aplicación?                  │
-│    □ Sitio estático      □ Web app    □ API        │
-│    □ Mobile app          □ Dashboard   □ Tiempo real│
-├─────────────────────────────────────────────────────┤
-│ 2. ¿Qué tan rápido necesitas entregarla?            │
-│    □ Mañana    □ 1 semana    □ 1 mes    □ 3 meses  │
-├─────────────────────────────────────────────────────┤
-│ 3. ¿Cuánta complejidad tiene?                       │
-│    □ Simple   □ Media    □ Compleja    □ Enterprise │
-├─────────────────────────────────────────────────────┤
-│ 4. ¿Cuántas personas trabajarán?                    │
-│    □ 1       □ 2-3      □ 5-10        □ 10+        │
-├─────────────────────────────────────────────────────┤
-│ 5. ¿Necesita escalar?                               │
-│    □ Prototipo  □ 1K usuarios  □ 1M usuarios       │
-└─────────────────────────────────────────────────────┘
-```
-
-### Análisis de Requisitos - Ejemplo
-
-**Tu Proyecto (Inventory Farmasi):**
-
-```
-1. Tipo: Web app (CRUD)
-2. Timeline: 3 horas ← RÁPIDO
-3. Complejidad: Media
-4. Equipo: 1 persona
-5. Escala: 100-1K usuarios
-
-CONCLUSIÓN: Necesitas simplificar, no complicar
-→ Vite + React + Express + BD en memoria
-→ NO necesitas: GraphQL, Microservicios, Redis
-→ Agregar después si crece
-```
+Dicho de otra forma: si dices "quiero usar React", ya empezaste mal. Si dices "necesito mantener estado complejo en el cliente", entonces React (u otra solución) es una opción válida.
 
 ---
 
-## 2️⃣ SEGUNDO PASO: Evaluar Opciones
+## Preguntas Base
 
-### Tabla Comparativa Universal
+Cuando enfrentes un nuevo proyecto, responde esto:
 
-```
-APLICACIÓN: Inventario de Farmacéutica
+1. ¿Cuál es exactamente el problema que resuelve?
+2. ¿Cuántos usuarios tendrá en el primer año?
+3. ¿Cuántas personas lo van a mantener después?
+4. ¿Se comunica con terceros (otras APIs)?
+5. ¿Hay componentes que podrían ser independientes?
 
-┌────────────────┬──────────────┬─────────────┬──────────────┐
-│ Criterio       │ Option A     │ Option B    │ Option C     │
-├────────────────┼──────────────┼─────────────┼──────────────┤
-│ Speed to prod  │ 3h (Vite)    │ 6h (CRA)    │ 12h (Next.js)│
-│ Bundle size    │ 45KB         │ 50KB        │ 60KB         │
-│ Learning curve │ Fácil        │ Fácil       │ Media        │
-│ Escalabilidad  │ ✅ Buena     │ ✅ Buena    │ ✅✅ Excelente│
-│ Team size      │ 1-10         │ 1-10        │ 5+           │
-│ Cost           │ Gratis       │ Gratis      │ Gratis       │
-│ Maintenance    │ Moderno      │ Legacy      │ Moderno      │
-└────────────────┴──────────────┴─────────────┴──────────────┘
+Eso es. Esas 5 preguntas definen 90% de la arquitectura.
 
-VEREDICTO: Vite es la mejor opción PARA ESTA NECESIDAD
-```
+En el caso del Inventory Farmasi:
 
----
+1. Sistema CRUD simple para gestionar stock
+2. Máximo 100-500 usuarios
+3. Una persona lo mantiene  
+4. No hay integraciones externas
+5. Potencialmente el frontend podría servir a otros backends
 
-## 3️⃣ TERCER PASO: El Árbol de Decisión Maestro
-
-```
-                    START: ¿Qué necesito?
-                              │
-                ┌─────────────┴─────────────┐
-                │                           │
-         ¿SEO importante?                   NO → ¿Solo frontend?
-         /      │       \                         │
-        SÍ    NO      MAYBE                      SÍ → React/Vue/Svelte
-        │      │        │                         
-      ├─ Content           │                   NO → ¿Backend necesario?
-      │  dinámico?         │                       │
-      │  │                 │                      SÍ → Express/FastAPI
-      │  SÍ → Next.js      │                      NO → Firebase/Supabase
-      │  NO → Astro        │
-      │                    ├─ CMS Headless
-      │                    └─ Jamstack
-      │
-      └─ ¿Complejidad?
-         │
-         ├─ Simple → HTML + CSS + JS vanilla
-         ├─ Media → React/Vue
-         ├─ Compleja → Full-stack (Next.js/Remix)
-         └─ Enterprise → Microservicios
-```
+**Conclusión:** Monolito simple. Frontend + Backend separados, BD en memoria para prototipo.
 
 ---
 
-## 4️⃣ CUARTO PASO: Reconocer Patrones de Arquitectura
+## Patrones de Arquitectura
 
-### Patrón 1: Monolito (Tu Proyecto)
+Hay cuatro patrones principales. Elegir el correcto depende de tus respuestas arriba.
 
+### 1. Monolito (Frontend + Backend en la misma máquina)
+
+Estructura:
 ```
-┌─────────────────────────────────┐
-│        Monolith                 │
-│                                 │
-│  ┌──────────┐  ┌──────────┐    │
-│  │ Frontend │  │ Backend  │    │
-│  │  React   │→ │ Express  │──┐ │
-│  └──────────┘  └──────────┘  │ │
-│                              │ │
-│           BD ←────────────────┘ │
-└─────────────────────────────────┘
-
-✅ Cuándo usar:
-- MVP, startups
-- <100K usuarios
-- Equipo pequeño (<5)
-- Deployment simple
-
-❌ Cuándo NO usar:
-- Equipos grandes (>20)
-- Escalabilidad crítica
-- Microservicios necesarios
+Cliente (navegador) → HTTP → Servidor Express
+                              ├─ Rutas
+                              ├─ Lógica
+                              └─ BD
 ```
 
-### Patrón 2: API + Frontend Separado
+Cuándo usar:
+- Equipo pequeño (1-5 personas)
+- Menos de 100K usuarios
+- Cambios frecuentes en la lógica
+- Deployment único (un servidor)
 
+Ventajas:
+- Fácil de debuggear (todo en un lugar)
+- Un deployment
+- Menos networking
+
+Desventajas:
+- Si crece mucho, la complejidad explota
+- Difícil dividir el trabajo entre teams
+- Un crash afecta todo
+
+Ejemplo: Tu Inventory Farmasi es esto. Frontend y backend en la misma carpeta, en puertos diferentes localmente pero podrían estar juntos.
+
+### 2. Frontend y Backend Separados (este proyecto)
+
+Estructura:
 ```
-┌──────────────┐         ┌──────────────┐
-│   Frontend   │         │   Backend    │
-│              │         │              │
-│  React/Vue   │◄─HTTP──►│  Express/    │
-│  (puerto     │         │  FastAPI     │
-│   3000)      │         │  (puerto     │
-└──────────────┘         │   5000)      │
-                         │              │
-                         ├─ BD SQL      │
-                         ├─ Redis       │
-                         └─ Workers     │
-                         └──────────────┘
-
-✅ Cuándo usar:
-- Equipos separados
-- Frontend y backend independientes
-- Múltiples clientes (web, mobile)
-- API pública
-
-❌ Problemas:
-- CORS (debes habilitarlo)
-- Deployment más complejo
-- Sincronización de versiones
-```
-
-### Patrón 3: Full-Stack Framework
-
-```
-┌─────────────────────────────────┐
-│       Next.js / Remix           │
-│                                 │
-│  ┌─ Frontend (React)            │
-│  ├─ Backend (API Routes)        │
-│  ├─ Server Components           │
-│  └─ BD Direct                   │
-└─────────────────────────────────┘
-
-✅ Cuándo usar:
-- SEO importante
-- Contenido dinámico
-- E-commerce
-- Prototyping rápido
-
-❌ Cuándo NO usar:
-- API para múltiples clientes
-- Equipos frontend/backend separados
+Cliente (React)        Servidor (Express)
+↓ HTTP               ↓ BD
+localhost:5173  →  localhost:5000
 ```
 
-### Patrón 4: Microservicios (Enterprise)
+Cuándo usar:
+- Frontend y backend evolucionan a ritmos diferentes
+- Múltiples clientes (web, mobile, TV)
+- Equipos separados (frontend devs, backend devs)
+- API pública para terceros
 
+Ventajas:
+- Escalas frontend y backend independientemente
+- Frontend devs no tocan backend
+- Puedes cambiar tecnología en una parte sin afectar la otra
+
+Desventajas:
+- CORS (token exchange, preflight requests)
+- Debugging más complejo (¿error en cliente o servidor?)
+- Deployment requiere dos procesos
+
+### 3. Full-Stack Framework (Next.js, Remix, SvelteKit)
+
+Estructura:
 ```
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│ Auth Service │  │ Users Service│  │Orders Service│
-│              │  │              │  │              │
-│  Port 3001   │  │  Port 3002   │  │  Port 3003   │
-└──────┬───────┘  └──────┬───────┘  └──────┬───────┘
-       │                 │                 │
-       └─────────────────┼─────────────────┘
-                         │
-                  ┌──────▼─────────┐
-                  │  API Gateway   │
-                  │  (Kong, Nginx) │
-                  └────────────────┘
-
-✅ Cuándo usar:
-- Empresas grandes (100+ devs)
-- Escalabilidad crítica
-- Teams independientes
-- Netflix, Uber, Amazon
-
-❌ Complejidad:
-- Deployment difícil
-- Testing complicado
-- Debugging complicado
+Next.js (corre en servidor)
+├─ Renderiza HTML
+├─ API Routes internas (/api/items)
+├─ Server Components
+└─ BD directa
 ```
+
+Cuándo usar:
+- SEO es crítico (blog, landing, e-commerce)
+- Contenido que cambia frecuentemente
+- Prototipado rápido sin dos deployments
+
+Ventajas:
+- Un comando para deployar (Vercel)
+- SEO automático (Server-Side Rendering)
+- Desarrollo más rápido
+
+Desventajas:
+- Menos flexible que monolito + frontend separado
+- Tied a una tecnología (Next.js, Node)
+- Difícil para múltiples clientes
+
+### 4. Microservicios
+
+Estructura:
+```
+API Gateway
+├─ Auth Service (puerto 3001)
+├─ Users Service (puerto 3002)
+├─ Orders Service (puerto 3003)
+└─ Payments Service (puerto 3004)
+```
+
+Cuándo usar:
+- Empresa con 50+ desarrolladores
+- Escalabilidad crítica (millones de usuarios)
+- Componentes que DEBEN evolucionar independientemente
+
+Ventajas:
+- Cada equipo usa su stack
+- Escalas solo lo que necesitas
+- Un servicio cae, los otros siguen
+
+Desventajas:
+- Complejidad operacional enorme
+- Testing es un infierno
+- Debugging cruzado requiere coordinación
+- Necesitas DevOps serio (Kubernetes, etc)
+
+No lo hagas a menos que *realmente* lo necesites.
 
 ---
 
-## 5️⃣ QUINTO PASO: Stack por Tipo de Proyecto
+## Factores Tecnológicos (Frontend)
 
-### 📱 Landing Page
+Una vez elegido el patrón, elige tecnología:
 
-```
-✅ Recomendado:
-  - HTML/CSS/JavaScript vanilla
-  - O Astro para SSG
-  - O Jekyll para blog estático
+**Para UI simple (Landing, docs):** HTML + CSS + JS vanilla  
+¿Por qué no React? Complejidad innecesaria.
 
-❌ NO usar:
-  - React (sobreingenierería)
-  - Next.js (overkill)
-```
+**Para UI con estado complejo:** React, Vue, o Svelte  
+Las tres funcionan bien. React tiene más empleo. Vue es más accesible. Svelte es más rápido pero menos maduro.
 
-**Por qué:** No necesitas estado complejo ni interactividad pesada.
+**¿Qué build tool?**
+- Webpack (viejo, lento): No lo hagas
+- Create React App (legacy): No lo hagas en 2025
+- Vite (moderno, rápido): Usa esto
+- Next.js (incluye backend): Si necesitas SSR/SEO
 
-### 🏪 E-commerce
-
-```
-✅ Recomendado:
-  - Frontend: Next.js 14 (App Router)
-  - Backend: Opciones:
-    a) Next.js API Routes
-    b) Stripe (pagos)
-    c) Firebase (BD)
-
-✅ También funciona:
-  - React + Express + PostgreSQL
-  - Shopify headless
-  - WooCommerce (PHP)
-```
-
-**Por qué:** Necesitas SEO, productos dinámicos, y checkout seguro.
-
-### 📊 Dashboard/Admin
-
-```
-✅ Recomendado:
-  - Frontend: React/Vue/Svelte
-  - Backend: Express/FastAPI
-  - BD: PostgreSQL/MongoDB
-  - Cache: Redis
-
-❌ NO usar:
-  - Vite solo (necesitas backend)
-  - Esto lo hiciste BIEN ✅
-```
-
-**Por qué:** Datos complejos, usuarios autenticados, operaciones críticas.
-
-### 💬 Chat/Tiempo Real
-
-```
-✅ Recomendado:
-  - Frontend: React
-  - Backend: Node.js + WebSockets
-    O Python + Django Channels
-    O Phoenix (Elixir)
-  - BD: Redis (caché) + PostgreSQL
-
-❌ NO usar:
-  - Express sin WebSockets
-  - BD relacional sin caché
-```
-
-**Por qué:** WebSockets requiere manejo especial de conexiones.
-
-### 🤖 API Pública
-
-```
-✅ Recomendado:
-  - Backend: Express/FastAPI/Go
-  - Versioning: /api/v1, /api/v2
-  - Auth: JWT o OAuth
-  - Rate limiting: Middleware
-  - Docs: Swagger/OpenAPI
-
-✅ Herramientas:
-  - Postman (testing)
-  - RapidAPI (publicar)
-```
-
-**Por qué:** Terceros usarán tu API, requiere estabilidad.
+En el Inventory usamos Vite porque:
+- Desarrollo rápido (HMR instant)
+- Build rápido
+- Configuración mínima
+- No incluye cosas que no necesitamos
 
 ---
 
-## 6️⃣ SEXTO PASO: Versiones y Cómo Mantenerse Actualizado
+## Factores Tecnológicos (Backend)
 
-### Ciclos de Vida
+**Para API simple (lo que hicimos):** Express  
+Rápido de prototipar, suficiente para Fase 1.
 
-```
-┌─────────────────────────────┐
-│  v1.0.0 (Stable)            │
-│  - Recomendado para prod    │
-│  - Bug fixes lanzados       │
-│  - 2+ años de soporte       │
-└─────────────────────────────┘
-           ↓ (1-2 años)
-┌─────────────────────────────┐
-│  v2.0.0 (New Major)         │
-│  - Breaking changes         │
-│  - Mejoras significativas   │
-│  - Opción de migrar         │
-└─────────────────────────────┘
-           ↓
-┌─────────────────────────────┐
-│  v1.x (EOL - End of Life)   │
-│  - Ya no recibe updates     │
-│  - Usa v2.x o actualiza     │
-└─────────────────────────────┘
-```
+**Para API robusta con tipos:** NestJS (Node) o FastAPI (Python)  
+Si trabajas en equipo, los tipos ahorran bugs.
 
-### Recursos para Verificar Versiones
+**Para escalabilidad extrema:** Go o Rust  
+Pero requiere más experiencia.
 
-| Recurso | Cómo Acceder | Información |
-|---------|-------------|-------------|
-| npmjs.com | Buscar paquete | Versión actual + historial |
-| GitHub Releases | /releases | Changelog detallado |
-| oficial.dev | react.dev, vite.dev | Recomendaciones oficiales |
-| npm outdated | Terminal | Tus paquetes desactualizados |
-
-### Tu Stack Actual (Enero 2026)
-
-```
-✅ MODERNO (2024-2025):
-- Vite 7.2.4 (Latest)
-- React 19.2.0 (Latest)
-- Node.js 20+ (LTS)
-- Express 5.2.1 (Latest)
-
-❌ LEGACY (2023 o anterior):
-- Create React App (18.0)
-- Webpack (legacy)
-- Vue 2 (sin soporte)
-```
+En el Inventory usamos Express porque:
+- Prototipado rápido
+- Sintaxis simple
+- JavaScript en ambos lados
+- Migración a NestJS es fácil después
 
 ---
 
-## 7️⃣ SÉTIMO PASO: Flujo de Decisión en Tiempo Real
+## Base de Datos
 
-### Ejemplo: Tu Proyecto
+**Fase 1 (lo que hicimos):** En memoria  
+Perfecta para prototipo. Datos se pierden al reiniciar pero no importa todavía.
 
-```
-REQUISITO: "Sistema de inventario para farmacéutica"
+**Fase 2:** SQLite  
+Archivo en el disco, no requiere servidor. Perfecto para aplicaciones medianas.
 
-1. ¿Qué tipo?
-   → CRUD web app
-   
-2. ¿SEO importante?
-   → NO
-   
-3. ¿Tiempo real?
-   → NO
-   
-4. ¿Equipo?
-   → 1 persona
-   
-5. ¿Timeline?
-   → 3 horas
+**Fase 3:** PostgreSQL  
+Bases de datos "serias". Cuando necesitas transacciones, reportes complejos, múltiples usuarios concurrentes.
 
-ÁRBOL DE DECISIÓN:
-  No SEO → No Next.js
-  ↓
-  1 person → Frontend + Backend juntos
-  ↓
-  3 horas → Stack que conozco
-  ↓
-  CRUD → Express API
-  ↓
-  Quick prototyping → Vite
-  ↓
-  Simple data → BD en memoria (Fase 1)
-  
-RESULTADO: ✅ Vite + React + Express (Correcto)
-```
+**MongoDB:** Solo si los datos NO son relacionales. Avoid unless you know why.
+
+Para el Inventory, seguimos esta evolución:
+1. En memoria (prototipo)
+2. SQLite (persistencia local)
+3. PostgreSQL (cuando crezca)
 
 ---
 
-## 8️⃣ OCTAVO PASO: Verificar tu Arquitectura
+## Decisión para Inventory Farmasi
 
-### Checklist: ¿Es buena tu arquitectura?
+Respondiendo las 5 preguntas:
 
-```
-✅ SEÑALES POSITIVAS:
-- [x] Componentes pequeños (<200 líneas)
-- [x] Funciones tienen UN propósito
-- [x] Fácil de agregar nuevas features
-- [x] Tests son sencillos de escribir
-- [x] Nuevo dev entiende en 30 min
-- [x] Sin código duplicado
-- [x] Nombres descriptivos
+1. **¿Cuál es exactamente el problema?**  
+   → Gestionar stock farmacéutico. CRUD puro.
 
-❌ SEÑALES DE ALERTA:
-- [ ] Archivos >500 líneas
-- [ ] Componentes hacen múltiples cosas
-- [ ] Difícil de entender el flujo
-- [ ] Código similar repetido
-- [ ] Sin estructura clara
-- [ ] Nombres ambiguos (var, x, data)
-```
+2. **¿Cuántos usuarios en el primer año?**  
+   → 50-200 máximo.
 
-### Tu Proyecto: Verificación ✅
+3. **¿Quién lo mantiene?**  
+   → Una persona (ahora), podrían ser 2-3 después.
 
-```
-✅ Estructura modular
-✅ Componentes reutilizables
-✅ Custom hook para lógica
-✅ Separación frontend/backend
-✅ Validación dual
-✅ Documentación clara
-✅ Responsive design
-```
+4. **¿Integraciones externas?**  
+   → No por ahora. Quizás un ERP en el futuro.
 
-**Conclusión:** Tu arquitectura es profesional 🎉
+5. **¿Componentes independientes?**  
+   → Frontend y backend ya están separados (buena decisión).
+
+**Arquitectura elegida:**
+- Patrón: Frontend separado del Backend
+- Frontend: Vite + React 19
+- Backend: Express
+- BD: En memoria (Fase 1) → SQLite (Fase 2) → PostgreSQL (Fase 3)
+- Deploy: Vercel (frontend) + Render (backend) en Fase 3
+
+**Por qué no microservicios/GraphQL/Redis/Kubernetes?**
+- Complejidad innecesaria ahora
+- Agregamos cuando sea necesario
+- Mejor 80/20 que 100/0
 
 ---
 
-## 9️⃣ NOVENO PASO: Cómo Escalar
+## Cómo Evoluciona
 
-### Cuando crece el proyecto:
+Tu proyecto probablemente seguirá este camino:
 
-```
-Fase 1: MVP (Actual)
-├─ BD en memoria
-├─ Sin autenticación
-├─ 1 desarrollador
-└─ <1K usuarios
+**Mes 1 (Ahora):** MVP  
+5 personas usando Inventory. Está en un servidor local. Todo en memoria.
 
-   ↓ (usuario aumenta)
+**Mes 4:** Estable  
+Necesitan que no se pierdan datos → Migras a SQLite.
 
-Fase 2: Escalabilidad
-├─ BD real (SQLite → PostgreSQL)
-├─ Autenticación JWT
-├─ Cache con Redis
-├─ 2-5 desarrolladores
-└─ 1K-100K usuarios
+**Mes 12:** Crecimiento  
+Ahora 50 usuarios. Necesitan login, auditoría, reportes → Agregan autenticación. Quizás caché con Redis.
 
-   ↓ (crece mucho)
+**Año 2:** Escalabilidad  
+200 usuarios, 3 sucursales. Necesitan separar por ubicación → PostgreSQL, más backends.
 
-Fase 3: Empresa
-├─ Microservicios
-├─ Load balancing
-├─ Monitoreo 24/7
-├─ 10+ desarrolladores
-└─ 100K-1M usuarios
-
-   ↓ (crece exponencial)
-
-Fase 4: Global
-├─ CDN
-├─ Multi-región
-├─ Disaster recovery
-├─ Equipos distribuidos
-└─ 1M+ usuarios
-```
-
-### Migración de Vite a Next.js (si necesitas SEO)
-
-```javascript
-// Cuando escales:
-// 1. Vite + React → Next.js
-// 2. Express → Next.js API Routes
-// 3. BD en memoria → PostgreSQL
-
-// NO necesitas cambiar componentes React
-// La mayoría del código se mantiene
-```
+**Año 3+:** Empresa real  
+Podrían eventualmente ir a microservicios si crecen mucho. Pero probablemente nunca lo necesiten.
 
 ---
 
-## 🔟 DÉCIMO PASO: Recursos de Aprendizaje
+## Lo Que NO Necesitas
 
-### Libros
-
-📖 **"Software Architecture: The Hard Parts"** - Ford & Richards
-- Mejores prácticas
-- Decisiones arquitectónicas
-- Tradeoffs
-
-📖 **"Building Microservices"** - Newman
-- Cuándo usar qué
-
-### Blogs
-
-🌐 **martinfowler.com** - Arquitectura
-🌐 **css-tricks.com** - Frontend patterns
-🌐 **github.com/awesome-*** - Listas curadas
-
-### Videos
-
-▶️ **System Design Primer** - YouTube
-▶️ **Fireship.io** - Explicaciones cortas
-▶️ **TechWithTim** - Tutoriales prácticos
-
-### Comunidades
-
-💬 **Reddit**: r/webdev, r/learnprogramming
-💬 **Discord**: Comunidades técnicas
-💬 **Dev.to**: Artículos técnicos
+**GraphQL:** Overhead para APIs CRUD simples.  
+**TypeScript:** Útil después. Ahora solo ralentiza.  
+**Redux/Zustand:** useInventory hook es suficiente.  
+**Testing:** Después de Fase 2 si es necesario.  
+**Docker:** Cuando despliegues a múltiples máquinas.  
+**Kubernetes:** Solo si tienes 100+ engineers.
 
 ---
 
-## 📋 RESUMEN FINAL: Tu Checklist de Decisiones
+## Cómo Reconocer Si Tu Arquitectura es Correcta
 
-Cuando enfrentes un nuevo proyecto:
+Preguntas:
 
-```
-□ 1. Identifica el TIPO (landing, app, api, etc)
-□ 2. Define REQUISITOS (timeline, escala, equipo)
-□ 3. Haz MATRIZ COMPARATIVA de opciones
-□ 4. Aplica ÁRBOL DE DECISIÓN
-□ 5. Elige el STACK MÍNIMO viable
-□ 6. Verifica VERSIONS están actualizadas
-□ 7. Planifica ROADMAP de escalabilidad
-□ 8. Documenta POR QUÉ elegiste eso
-□ 9. Evalúa SEÑALES de arquitectura buena
-□ 10. Mantén equipo ACTUALIZADO
-```
+1. ¿Puedo agregar una feature en una hora sin tocar 5 archivos?
+2. ¿Entienden nuevos devs el código en 30 minutos?
+3. ¿Los cambios en backend no rompen frontend?
+4. ¿El código se ve limpio o es espagueti?
+5. ¿Hay test rápidos que verifican lógica?
 
----
+Si respondiste "sí" a 4 de 5: buena arquitectura.
 
-## 🎯 Tu Ventaja
+En el Inventory:
+- ✓ Agregar feature es rápido (hooks modulares)
+- ✓ Onboarding es fácil (estructura clara)
+- ✓ Frontend y backend son independientes
+- ✓ Código es legible (nombres descriptivos)
+- ✗ Sin tests (pero no los necesitábamos todavía)
 
-Ahora entiendes:
-
-✅ **Por qué** Vite > Create React App  
-✅ **Por qué** componentes modulares  
-✅ **Por qué** custom hooks  
-✅ **Por qué** BD en memoria (Fase 1)  
-✅ **Cuándo** escalar a Fase 2  
-✅ **Cómo** evaluar cualquier arquitectura  
-✅ **Dónde** aprender más  
+Estás en 4/5. Bien.
 
 ---
 
-## 💡 Lo Más Importante
+## Recursos Técnicos (No Teóricos)
 
-```
-"La mejor arquitectura es la que:
-  1. Resuelve el problema AHORA
-  2. Es fácil de entender
-  3. Puede crecer sin rehacer
-  4. El equipo comprende
-  
-NO siempre es la más 'moderna' o 'escalable'
-```
+Si quieres aprender más, lee:
 
-Aplicaste esto perfectamente en **Inventory Farmasi** ✨
+**Arquitectura concreta:**
+- Building Microservices (Newman) - enseña cuándo NO usarlos
+- Release It! (Nygard) - production-readiness
 
----
+**Decisiones técnicas:**
+- Martin Fowler blog - patrones reales
+- GitHub architecture - cómo las empresas lo hacen
 
-**Fecha:** Enero 24, 2026  
-**Nivel:** Intermedio-Avanzado  
-**Lectura:** 30-45 minutos  
-**Aplicación:** Tu siguiente proyecto
+**Desarrollo práctico:**
+- Node.js en Producción - producción checklist
+- PostgreSQL documentation - no es fácil pero es necesario
+
+No leas "Arquitectura Limpia" todavía. Primero haz 10 proyectos.

@@ -1,0 +1,21 @@
+PROYECTO: Inventory Farmasi
+TABLA: items (Inventario)
+
+---------------------------------------------------------------------
+CAMPO (Columna) | TIPO DE DATO  | DESCRIPCIÓN
+---------------------------------------------------------------------
+id              | SERIAL (Int)  | Identificador único (Llave Primaria)
+name            | VARCHAR(100)  | Nombre del producto (Ej: Shampoo)
+quantity        | INTEGER       | Cantidad disponible en stock
+description     | TEXT          | Detalles del producto
+price           | DECIMAL       | Precio de venta (Opcional)
+---------------------------------------------------------------------
+
+EJEMPLO DE DATO REAL (JSON):
+{
+  "id": 1,
+  "name": "Jabón de Tea Tree",
+  "quantity": 25,
+  "description": "Jabón natural para el control de grasa.",
+  "price": 4500
+}

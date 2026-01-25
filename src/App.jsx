@@ -1,6 +1,6 @@
 /**
- * App.jsx - Componente principal
- * Administrador de inventario de Farmacéutica
+ * App.jsx - Main component
+ * Pharmaceutical inventory manager
  */
 import { useState } from 'react';
 import { useInventory } from './hooks/useInventory';
@@ -41,18 +41,18 @@ function App() {
       }
       handleCloseModal();
     } catch (err) {
-      console.error('Error en formulario:', err);
+      console.error('Form error:', err);
     } finally {
       setSubmitLoading(false);
     }
   };
 
   const handleDeleteItem = async (id) => {
-    if (window.confirm('¿Estás seguro de que deseas eliminar este item?')) {
+    if (window.confirm('Are you sure you want to delete this item?')) {
       try {
         await deleteItem(id);
       } catch (err) {
-        console.error('Error al eliminar:', err);
+        console.error('Error deleting item:', err);
       }
     }
   };
@@ -62,8 +62,8 @@ function App() {
       {/* Header */}
       <header className="app-header">
         <div className="header-content">
-          <h1 className="app-title">💊 Farmacéutica Inventario</h1>
-          <p className="app-subtitle">Sistema de Gestión de Inventario</p>
+          <h1 className="app-title">💊 Pharmaceutical Inventory</h1>
+          <p className="app-subtitle">Inventory Management System</p>
         </div>
       </header>
 
@@ -81,7 +81,7 @@ function App() {
           <div className="toolbar">
             <div className="toolbar-info">
               <span className="item-count">
-                Total de items: <strong>{items.length}</strong>
+                Total items: <strong>{items.length}</strong>
               </span>
             </div>
             <Button
@@ -89,7 +89,7 @@ function App() {
               onClick={handleOpenModal}
               disabled={loading}
             >
-              ➕ Nuevo Item
+              ➕ New Item
             </Button>
           </div>
 
@@ -106,7 +106,7 @@ function App() {
       {/* Modal Form */}
       <Modal
         isOpen={isModalOpen}
-        title={editingItem ? 'Editar Item' : 'Nuevo Item'}
+        title={editingItem ? 'Edit Item' : 'New Item'}
         onClose={handleCloseModal}
       >
         <ItemForm
@@ -119,7 +119,7 @@ function App() {
 
       {/* Footer */}
       <footer className="app-footer">
-        <p>© 2026 Farmacéutica Inventario | v1.0.0</p>
+        <p>© 2026 Pharmaceutical Inventory | v1.0.0</p>
       </footer>
     </div>
   );

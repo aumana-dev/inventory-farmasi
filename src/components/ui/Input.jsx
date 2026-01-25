@@ -1,5 +1,5 @@
 /**
- * Componente Input - Reutilizable para formularios
+ * Input Component - Reusable for forms
  */
 export const Input = ({
   label,

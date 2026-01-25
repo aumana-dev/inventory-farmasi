@@ -1,15 +1,15 @@
 /**
- * Componente InventoryTable - Tabla del inventario con acciones
+ * InventoryTable Component - Inventory table with actions
  */
 import { Button } from '../ui/Button';
 
 export const InventoryTable = ({ items, onEdit, onDelete, loading }) => {
   if (loading) {
-    return <div className="loading">Cargando inventario...</div>;
+    return <div className="loading">Loading inventory...</div>;
   }
 
   if (items.length === 0) {
-    return <div className="empty-state">No hay items en el inventario</div>;
+    return <div className="empty-state">No items in inventory</div>;
   }
 
   return (
@@ -18,10 +18,10 @@ export const InventoryTable = ({ items, onEdit, onDelete, loading }) => {
         <thead>
           <tr>
             <th>#ID</th>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Descripción</th>
-            <th>Acciones</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -41,14 +41,14 @@ export const InventoryTable = ({ items, onEdit, onDelete, loading }) => {
                   onClick={() => onEdit(item)}
                   className="btn-sm"
                 >
-                  ✏️ Editar
+                  ✏️ Edit
                 </Button>
                 <Button
                   variant="danger"
                   onClick={() => onDelete(item.id)}
                   className="btn-sm"
                 >
-                  🗑️ Eliminar
+                  🗑️ Delete
                 </Button>
               </td>
             </tr>

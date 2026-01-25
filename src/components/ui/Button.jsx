@@ -1,13 +1,13 @@
 /**
- * Componente Button - Reutilizable
+ * Button Component - Reusable
  */
-export const Button = ({ 
-  children, 
-  variant = 'primary', 
-  disabled = false, 
+export const Button = ({
+  children,
+  variant = 'primary',
+  disabled = false,
   onClick,
   className = '',
-  ...props 
+  ...props
 }) => {
   const baseClasses = 'btn';
   const variantClasses = {

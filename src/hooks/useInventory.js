@@ -1,6 +1,6 @@
 /**
  * Custom Hook: useInventory
- * Maneja toda la lógica del inventario
+ * Manages all inventory logic
  */
 
 import { useState, useEffect, useCallback } from 'react';
@@ -12,7 +12,7 @@ export const useInventory = () => {
   const [error, setError] = useState(null);
 
   /**
-   * Carga todos los items del inventario
+   * Load all items from inventory
    */
   const fetchItems = useCallback(async () => {
     setLoading(true);
@@ -22,14 +22,14 @@ export const useInventory = () => {
       setItems(data);
     } catch (err) {
       setError(err.message);
-      console.error('Error al cargar inventario:', err);
+      console.error('Error loading inventory:', err);
     } finally {
       setLoading(false);
     }
   }, []);
 
   /**
-   * Agrega un nuevo item
+   * Add a new item
    */
   const addItem = useCallback(async (itemData) => {
     try {
@@ -43,7 +43,7 @@ export const useInventory = () => {
   }, []);
 
   /**
-   * Actualiza un item existente
+   * Update an existing item
    */
   const updateItem = useCallback(async (id, itemData) => {
     try {
@@ -59,7 +59,7 @@ export const useInventory = () => {
   }, []);
 
   /**
-   * Elimina un item del inventario
+   * Delete an item from inventory
    */
   const deleteItem = useCallback(async (id) => {
     try {
@@ -71,7 +71,7 @@ export const useInventory = () => {
     }
   }, []);
 
-  // Cargar items al montar el componente
+  // Load items when component mounts
   useEffect(() => {
     fetchItems();
   }, [fetchItems]);

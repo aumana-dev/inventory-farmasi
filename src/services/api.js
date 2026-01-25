@@ -1,5 +1,5 @@
 /**
- * API Service - Comunicación con backend Express
+ * API Service - Communication with Express backend
  * Base URL: http://localhost:5000/api
  */
 
@@ -7,7 +7,7 @@ const API_BASE = 'http://localhost:5000/api';
 
 export const inventoryAPI = {
   /**
-   * Obtiene todos los items del inventario
+   * Get all items from inventory
    */
   getAll: async () => {
     try {
@@ -21,7 +21,7 @@ export const inventoryAPI = {
   },
 
   /**
-   * Crea un nuevo item en el inventario
+   * Create a new item in inventory
    */
   create: async (itemData) => {
     try {
@@ -39,7 +39,7 @@ export const inventoryAPI = {
   },
 
   /**
-   * Actualiza un item existente
+   * Update an existing item
    */
   update: async (id, itemData) => {
     try {
@@ -57,7 +57,7 @@ export const inventoryAPI = {
   },
 
   /**
-   * Elimina un item del inventario
+   * Delete an item from inventory
    */
   delete: async (id) => {
     try {

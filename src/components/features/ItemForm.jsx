@@ -1,5 +1,5 @@
 /**
- * Componente ItemForm - Formulario para agregar/editar items
+ * ItemForm Component - Form for adding/editing items
  */
 import { useState, useEffect } from 'react';
 import { Input } from '../ui/Input';
@@ -26,7 +26,7 @@ export const ItemForm = ({ item, onSubmit, onCancel, loading }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Limpiar error al escribir
+    // Clear error when typing
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
@@ -34,12 +34,12 @@ export const ItemForm = ({ item, onSubmit, onCancel, loading }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = 'El nombre es requerido';
+    if (!formData.name.trim()) newErrors.name = 'Product name is required';
     if (formData.quantity === '' || formData.quantity < 0) {
-      newErrors.quantity = 'La cantidad debe ser un número válido';
+      newErrors.quantity = 'Quantity must be a valid number';
     }
     if (!formData.description.trim()) {
-      newErrors.description = 'La descripción es requerida';
+      newErrors.description = 'Description is required';
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -58,10 +58,10 @@ export const ItemForm = ({ item, onSubmit, onCancel, loading }) => {
   return (
     <form className="item-form" onSubmit={handleSubmit}>
       <Input
-        label="Nombre del Producto"
+        label="Product Name"
         name="name"
         type="text"
-        placeholder="Ej: Shampoo Keratina"
+        placeholder="E.g: Keratin Shampoo"
         value={formData.name}
         onChange={handleChange}
         error={errors.name}
@@ -69,10 +69,10 @@ export const ItemForm = ({ item, onSubmit, onCancel, loading }) => {
       />
 
       <Input
-        label="Cantidad"
+        label="Quantity"
         name="quantity"
         type="number"
-        placeholder="Ej: 25"
+        placeholder="E.g: 25"
         value={formData.quantity}
         onChange={handleChange}
         error={errors.quantity}
@@ -81,11 +81,11 @@ export const ItemForm = ({ item, onSubmit, onCancel, loading }) => {
 
       <div className="input-group">
         <label className="input-label">
-          Descripción <span className="required">*</span>
+          Description <span className="required">*</span>
         </label>
         <textarea
           name="description"
-          placeholder="Ej: Jabón natural de tea tree para control de grasa"
+          placeholder="E.g: Natural tea tree soap for oil control"
           value={formData.description}
           onChange={handleChange}
           className={`textarea-field ${errors.description ? 'input-error' : ''}`}
@@ -103,7 +103,7 @@ export const ItemForm = ({ item, onSubmit, onCancel, loading }) => {
           variant="success"
           disabled={loading}
         >
-          {loading ? 'Guardando...' : item ? '✓ Actualizar' : '➕ Agregar'}
+          {loading ? 'Saving...' : item ? '✓ Update' : '➕ Add'}
         </Button>
         <Button
           type="button"
@@ -111,7 +111,7 @@ export const ItemForm = ({ item, onSubmit, onCancel, loading }) => {
           onClick={onCancel}
           disabled={loading}
         >
-          ✕ Cancelar
+          ✕ Cancel
         </Button>
       </div>
     </form>

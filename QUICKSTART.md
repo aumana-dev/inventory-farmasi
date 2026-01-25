@@ -1,229 +1,229 @@
-# 🚀 Inicio Rápido - Inventory Farmasi
+# 🚀 Quick Start - Inventory Farmasi
 
-Guía paso a paso para empezar con el proyecto.
+Step-by-step guide to get started with the project.
 
-## ⚡ 30 segundos - Quick Start
+## ⚡ 30 seconds - Quick Start
 
 ```bash
-# 1. Instalar dependencias (primera vez)
+# 1. Install dependencies (first time)
 npm install
 
-# 2. Terminal 1 - Iniciar Backend
+# 2. Terminal 1 - Start Backend
 node server.js
 
-# 3. Terminal 2 - Iniciar Frontend
+# 3. Terminal 2 - Start Frontend
 npm run dev
 
-# 4. Abre en navegador
+# 4. Open in browser
 http://localhost:5173
 ```
 
-## 🎯 Qué Verás
+## 🎯 What You'll See
 
 ```
 ┌─────────────────────────────────┐
-│   💊 Farmacéutica Inventario    │
-│   Sistema de Gestión            │
+│   💊 Pharmaceutical Inventory   │
+│   Management System             │
 └─────────────────────────────────┘
-│ Total de items: 2               │
-│ [➕ Nuevo Item]                 │
+│ Total items: 2                  │
+│ [➕ New Item]                   │
 ├─────────────────────────────────┤
-│ #ID│ Nombre    │ Cantidad│ ...  │
+│ #ID│ Name     │ Quantity│ ...   │
 ├─────────────────────────────────┤
-│  1 │ Jabón     │ 50     │      │
-│  2 │ Shampoo   │ 20     │      │
+│  1 │ Soap     │ 50     │       │
+│  2 │ Shampoo  │ 20     │       │
 └─────────────────────────────────┘
 ```
 
-## 📖 Funcionalidades
+## 📖 Features
 
-### ✅ Ver Inventario
-- Se carga automáticamente
-- Tabla con ID, nombre, cantidad, descripción
-- Muestra indicador verde (stock) o rojo (crítico)
+### ✅ View Inventory
+- Loads automatically
+- Table with ID, name, quantity, description
+- Shows green indicator (stock) or red (critical)
 
-### ➕ Agregar Nuevo Item
+### ➕ Add New Item
 ```
-1. Click "➕ Nuevo Item"
-2. Modal con formulario:
-   - Nombre (requerido)
-   - Cantidad (número, requerido)
-   - Descripción (requerido)
-3. Click "✓ Agregar"
-4. ✅ Aparece en tabla
-```
-
-### ✏️ Editar Item
-```
-1. Click "✏️ Editar" en tabla
-2. Modal abre con datos pre-cargados
-3. Modificar valores
-4. Click "✓ Actualizar"
-5. ✅ Cambios guardados
+1. Click "➕ New Item"
+2. Modal with form:
+   - Name (required)
+   - Quantity (number, required)
+   - Description (required)
+3. Click "✓ Add"
+4. ✅ Appears in table
 ```
 
-### 🗑️ Eliminar Item
+### ✏️ Edit Item
 ```
-1. Click "🗑️ Eliminar" en tabla
-2. Confirmar en popup
-3. ✅ Item removido
+1. Click "✏️ Edit" in table
+2. Modal opens with pre-loaded data
+3. Modify values
+4. Click "✓ Update"
+5. ✅ Changes saved
 ```
 
-## 🔧 Requisitos
+### 🗑️ Delete Item
+```
+1. Click "🗑️ Delete" in table
+2. Confirm in popup
+3. ✅ Item removed
+```
 
-- **Node.js** 18+ (verificar: `node --version`)
-- **npm** 9+ (verificar: `npm --version`)
-- Dos terminales (una para backend, una para frontend)
+## 🔧 Requirements
 
-## 📁 Estructura de Carpetas (Rápida)
+- **Node.js** 18+ (check: `node --version`)
+- **npm** 9+ (check: `npm --version`)
+- Two terminals (one for backend, one for frontend)
+
+## 📁 Folder Structure (Quick)
 
 ```
 inventory-farmasi/
 ├── src/                      # Frontend React
 │   ├── components/
-│   │   ├── ui/              # Botones, inputs, modals
-│   │   └── features/        # Tabla e formulario
+│   │   ├── ui/              # Buttons, inputs, modals
+│   │   └── features/        # Table and form
 │   ├── hooks/               # useInventory
-│   ├── services/            # Llamadas API
-│   ├── App.jsx              # App principal
+│   ├── services/            # API calls
+│   ├── App.jsx              # Main app
 │   └── main.jsx             # Entry point
 ├── server.js                # Backend Express
-├── package.json             # Dependencias
-└── README.md                # Documentación completa
+├── package.json             # Dependencies
+└── README.md                # Full documentation
 ```
 
 ## 🔌 API Endpoints
 
-El backend expone estos endpoints:
+The backend exposes these endpoints:
 
 ```bash
-# Ver todos los items
+# Get all items
 GET http://localhost:5000/api/items
 
-# Crear nuevo item
+# Create new item
 POST http://localhost:5000/api/items
 Body: {
-  "name": "Producto",
+  "name": "Product",
   "quantity": 25,
-  "description": "Detalles"
+  "description": "Details"
 }
 
-# Actualizar item
+# Update item
 PUT http://localhost:5000/api/items/1
 Body: {
-  "name": "Nuevo nombre",
+  "name": "New name",
   "quantity": 30,
-  "description": "Nueva descripción"
+  "description": "New description"
 }
 
-# Eliminar item
+# Delete item
 DELETE http://localhost:5000/api/items/1
 ```
 
-Puedes testear con **Postman**, **Insomnia**, o el navegador.
+You can test with **Postman**, **Insomnia**, or the browser.
 
 ## 🐛 Troubleshooting
 
 ### ❌ "Port 5000 already in use"
 ```bash
-# Buscar proceso en puerto 5000
+# Find process on port 5000
 netstat -ano | findstr :5000
 
-# Matar proceso (Windows)
+# Kill process (Windows)
 taskkill /PID <PID> /F
 ```
 
 ### ❌ "Cannot find module"
 ```bash
-# Reinstalar dependencias
+# Reinstall dependencies
 rm -r node_modules package-lock.json
 npm install
 ```
 
 ### ❌ "CORS error"
-- ✅ Backend tiene CORS habilitado en `server.js`
-- ✅ Frontend intenta conectar a `http://localhost:5000`
-- Verificar que ambos están corriendo en puertos correctos
+- ✅ Backend has CORS enabled in `server.js`
+- ✅ Frontend tries to connect to `http://localhost:5000`
+- Check that both are running on correct ports
 
-### ❌ Datos desaparecen al reiniciar
-- ✅ Es normal - BD está en memoria
-- Fase 2 añadirá SQLite para persistencia
+### ❌ Data disappears on restart
+- ✅ This is normal - Database is in memory
+- Phase 2 will add SQLite for persistence
 
-## 💻 Comandos Útiles
+## 💻 Useful Commands
 
 ```bash
-# Desarrollo
-npm run dev         # Inicia Vite dev server con HMR
+# Development
+npm run dev         # Start Vite dev server with HMR
 
-# Producción
-npm run build       # Build optimizado
-npm run preview     # Preview del build
+# Production
+npm run build       # Optimized build
+npm run preview     # Preview of build
 
 # Linting
-npm run lint        # Verificar código con ESLint
+npm run lint        # Check code with ESLint
 
 # Backend
-node server.js      # Inicia Express server
-node server.js --watch  # Con auto-reload (si instalas nodemon)
+node server.js      # Start Express server
+node server.js --watch  # With auto-reload (if you install nodemon)
 ```
 
-## 🎨 Temas y Personalizacion
+## 🎨 Themes and Customization
 
-### Cambiar Colores
-Editar `src/App.css` - sección `:root`:
+### Change Colors
+Edit `src/App.css` - `:root` section:
 
 ```css
 :root {
-  --primary: #2563eb;        /* Azul principal */
-  --success: #10b981;        /* Verde */
-  --danger: #ef4444;         /* Rojo */
-  --bg-dark: #0f172a;        /* Fondo oscuro */
-  /* ... más variables */
+  --primary: #2563eb;        /* Primary blue */
+  --success: #10b981;        /* Green */
+  --danger: #ef4444;         /* Red */
+  --bg-dark: #0f172a;        /* Dark background */
+  /* ... more variables */
 }
 ```
 
-### Agregar Campos
-1. Editar `ItemForm.jsx` - agregar nuevo `<Input />`
-2. Editar backend `server.js` - agregar campo al objeto
-3. Editar `InventoryTable.jsx` - mostrar en tabla
+### Add Fields
+1. Edit `ItemForm.jsx` - add new `<Input />`
+2. Edit backend `server.js` - add field to object
+3. Edit `InventoryTable.jsx` - show in table
 
-## 📚 Documentación Adicional
+## 📚 Additional Documentation
 
-- **README.md** - Guía completa del proyecto
-- **ARCHITECTURE.md** - Decisiones técnicas y escalabilidad
-- **REVIEW.md** - Checklist de verificación
+- **README.md** - Full project guide
+- **ARCHITECTURE.md** - Technical decisions and scalability
+- **REVIEW.md** - Verification checklist
 
-## 🚀 Siguiente Paso
+## 🚀 Next Steps
 
-Cuando termines con Fase 1, lee sobre **Fase 2:**
+When you finish Phase 1, learn about **Phase 2:**
 
 ```
-Fase 2: Persistencia con SQLite
-├─ Instalar sqlite3
-├─ Crear esquema de BD
-├─ Migraciones
+Phase 2: Persistence with SQLite
+├─ Install sqlite3
+├─ Create database schema
+├─ Migrations
 └─ Tests
 ```
 
-## 📞 Soporte
+## 📞 Support
 
-Si algo no funciona:
+If something doesn't work:
 
-1. ✅ Verifica Node.js y npm están instalados
-2. ✅ Verifica puertos 5000 y 5173 están libres
-3. ✅ Verifica ambas terminales están corriendo
-4. ✅ Check console (F12) para errores
-5. ✅ Lee `docs/ARCHITECTURE.md` para entender estructura
+1. ✅ Check Node.js and npm are installed
+2. ✅ Check ports 5000 and 5173 are free
+3. ✅ Check both terminals are running
+4. ✅ Check console (F12) for errors
+5. ✅ Read `docs/ARCHITECTURE.md` to understand structure
 
-## 🎯 Tips Profesionales
+## 🎯 Professional Tips
 
-- **Hot Module Replacement (HMR)**: Cambios en código se reflejan al instante
-- **DevTools**: Abre F12 en navegador para ver Network, Console
-- **API Testing**: Usa Postman/Insomnia para probar endpoints
-- **Validación**: El formulario valida ANTES de enviar al servidor
+- **Hot Module Replacement (HMR)**: Code changes reflect instantly
+- **DevTools**: Open F12 in browser to see Network, Console
+- **API Testing**: Use Postman/Insomnia to test endpoints
+- **Validation**: Form validates BEFORE sending to server
 
 ---
 
-**¿Listo?** ¡Ejecuta `npm install` y comienza! 🎉
+**Ready?** Run `npm install` and start! 🎉
 
-Para más detalles, ver [README.md](./README.md)
+For more details, see [README.md](./README.md)

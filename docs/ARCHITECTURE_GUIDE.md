@@ -1,16 +1,16 @@
-# Arquitectura de Software: Decisiones y Patrones
+# Software Architecture: Decisions and Patterns
 
-Respuesta a la pregunta: "¿Hay un manual para identificar y hacer ese tipo de cosas?"
+Response to: "Is there a manual to identify and make these architectural decisions?"
 
-La respuesta es no hay un manual único porque cada contexto es diferente. Pero hay un **proceso de decisión** que funciona.
+The answer is: there's no single manual because context matters. But there is a **decision process** that works.
 
 ---
 
-## El Primer Principio
+## First Principle
 
-No elijas tecnología. Elige el patrón que resuelve tu problema, y la tecnología es secundaria.
+Don't choose technology. Choose the pattern that solves your problem, then technology is secondary.
 
-Dicho de otra forma: si dices "quiero usar React", ya empezaste mal. Si dices "necesito mantener estado complejo en el cliente", entonces React (u otra solución) es una opción válida.
+In other words: if you say "I want to use React", you already started wrong. If you say "I need to manage complex state on the client", then React (or another solution) becomes a valid option.
 
 ---
 

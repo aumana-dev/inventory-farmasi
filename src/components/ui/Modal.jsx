@@ -1,5 +1,5 @@
 /**
- * Componente Modal - Para diálogos
+ * Modal Component - For dialogs
  */
 export const Modal = ({ isOpen, title, children, onClose }) => {
   if (!isOpen) return null;

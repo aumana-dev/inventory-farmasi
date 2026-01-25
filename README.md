@@ -1,134 +1,134 @@
-# 💊 Farmacéutica Inventario
+# 💊 Pharmaceutical Inventory
 
-Sistema profesional de gestión de inventario para farmacéuticas construido con **React 19 + Vite** en el frontend y **Express.js** en el backend.
+Professional inventory management system for pharmaceutical companies built with **React 19 + Vite** on the frontend and **Express.js** on the backend.
 
-## 🚀 Características
+## 🚀 Features
 
-- ✅ **Frontend moderno**: React 19 con Vite para HMR instantáneo
-- ✅ **Componentes reutilizables**: UI modularizada con Button, Input, Modal
-- ✅ **API REST completa**: CRUD operations (Create, Read, Update, Delete)
-- ✅ **Validaciones**: En frontend y backend para integridad de datos
-- ✅ **Dark theme**: Interfaz moderna con diseño profesional
-- ✅ **Responsivo**: Adaptado para mobile, tablet y desktop
-- ✅ **Custom hooks**: `useInventory` para manejo de estado
+- ✅ **Modern Frontend**: React 19 with Vite for instant HMR
+- ✅ **Reusable Components**: Modularized UI with Button, Input, Modal
+- ✅ **Complete REST API**: CRUD operations (Create, Read, Update, Delete)
+- ✅ **Validations**: Frontend and backend for data integrity
+- ✅ **Dark Theme**: Modern interface with professional design
+- ✅ **Responsive**: Adapted for mobile, tablet and desktop
+- ✅ **Custom Hooks**: `useInventory` for state management
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 inventory-farmasi/
 ├── src/
 │   ├── components/
-│   │   ├── ui/              # Componentes base reutilizables
+│   │   ├── ui/              # Reusable base components
 │   │   │   ├── Button.jsx
 │   │   │   ├── Input.jsx
 │   │   │   └── Modal.jsx
-│   │   └── features/        # Componentes de negocio
+│   │   └── features/        # Business components
 │   │       ├── InventoryTable.jsx
 │   │       └── ItemForm.jsx
 │   ├── hooks/               # Custom hooks
-│   │   └── useInventory.js  # Hook para gestionar estado
-│   ├── services/            # Comunicación con API
+│   │   └── useInventory.js  # Hook for state management
+│   ├── services/            # API communication
 │   │   └── api.js
-│   ├── App.jsx              # Componente raíz
-│   ├── App.css              # Estilos profesionales
+│   ├── App.jsx              # Root component
+│   ├── App.css              # Professional styles
 │   └── main.jsx
-├── server.js                # Backend Express
-├── package.json             # Dependencias
-├── vite.config.js          # Configuración Vite
-└── DB_SCHEMA.txt           # Esquema de base de datos
+├── server.js                # Express backend
+├── package.json             # Dependencies
+├── vite.config.js           # Vite configuration
+└── DB_SCHEMA.txt            # Database schema
 ```
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Technology Stack
 
 ### Frontend
-- **Vite 7.2.4**: Build tool ultrarrápido
-- **React 19.2.0**: Última versión con nuevas features
-- **ES6+ Modules**: Importes nativos
-- **CSS3**: Variables CSS y diseño responsivo
+- **Vite 7.2.4**: Ultra-fast build tool
+- **React 19.2.0**: Latest version with new features
+- **ES6+ Modules**: Native imports
+- **CSS3**: CSS variables and responsive design
 
 ### Backend
-- **Express 5.2.1**: Framework web ligero
-- **CORS**: Para comunicación frontend-backend
-- **Validaciones**: Middleware de validación
+- **Express 5.2.1**: Lightweight web framework
+- **CORS**: For frontend-backend communication
+- **Validations**: Validation middleware
 
-### Desarrollo
-- **ESLint 9.39.1**: Linting de código
-- **React Hooks**: Para estado y efectos
+### Development
+- **ESLint 9.39.1**: Code linting
+- **React Hooks**: For state and effects
 
-## 📦 Instalación
+## 📦 Installation
 
-### 1. Clonar repositorio
+### 1. Clone repository
 ```bash
 git clone https://github.com/aumana-dev/inventory-farmasi.git
 cd inventory-farmasi
 ```
 
-### 2. Instalar dependencias
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### 3. Iniciar Backend (Terminal 1)
+### 3. Start Backend (Terminal 1)
 ```bash
 node server.js
 ```
-El backend correrá en `http://localhost:5000`
+Backend will run on `http://localhost:5000`
 
-### 4. Iniciar Frontend (Terminal 2)
+### 4. Start Frontend (Terminal 2)
 ```bash
 npm run dev
 ```
-El frontend correrá en `http://localhost:5173`
+Frontend will run on `http://localhost:5173`
 
-## 🎯 Cómo Usar
+## 🎯 How to Use
 
-### Pantalla Principal
-- **Ver Inventario**: Los items se cargan automáticamente
-- **Total de Items**: Se muestra en tiempo real en la toolbar
-- **Nuevo Item**: Botón "+ Nuevo Item" abre modal
+### Main Screen
+- **View Inventory**: Items load automatically
+- **Total Items**: Displayed in real-time in toolbar
+- **New Item**: "➕ New Item" button opens modal
 
-### Agregar Item
-1. Click en "➕ Nuevo Item"
-2. Llenar formulario:
-   - **Nombre**: Nombre del producto (requerido)
-   - **Cantidad**: Stock disponible (requerido, número positivo)
-   - **Descripción**: Detalles del producto (requerido)
-3. Click "✓ Agregar"
+### Add Item
+1. Click "➕ New Item"
+2. Fill form:
+   - **Name**: Product name (required)
+   - **Quantity**: Available stock (required, positive number)
+   - **Description**: Product details (required)
+3. Click "✓ Add"
 
-### Editar Item
-1. Click en "✏️ Editar" en la tabla
-2. Modal abre con datos pre-cargados
-3. Modificar valores
-4. Click "✓ Actualizar"
+### Edit Item
+1. Click "✏️ Edit" in table
+2. Modal opens with pre-loaded data
+3. Modify values
+4. Click "✓ Update"
 
-### Eliminar Item
-1. Click en "🗑️ Eliminar"
-2. Confirmar en ventana de confirmación
-3. Item se elimina del inventario
+### Delete Item
+1. Click "🗑️ Delete"
+2. Confirm in confirmation window
+3. Item is removed from inventory
 
-## 🏗️ Arquitectura de Decisiones
+## 🏗️ Architecture Decisions
 
-### ¿Por qué Vite y no Create React App?
+### Why Vite and not Create React App?
 
-| Aspecto | Vite | CRA |
+| Aspect | Vite | CRA |
 |--------|------|-----|
-| **Velocidad dev** | 10-100x más rápido | Lento |
+| **Dev Speed** | 10-100x faster | Slow |
 | **Build time** | ~500ms | ~30s |
-| **HMR** | Instantáneo | Lento |
-| **Tamaño bundle** | ~45KB | ~50KB |
-| **Mantenimiento** | Activo (2024) | Legacy |
+| **HMR** | Instant | Slow |
+| **Bundle size** | ~45KB | ~50KB |
+| **Maintenance** | Active (2024) | Legacy |
 
-**Conclusión**: Vite es el estándar moderno 2024.
+**Conclusion**: Vite is the modern 2024 standard.
 
-### ¿Por qué componentes modulares?
+### Why modular components?
 
 ```jsx
-// ❌ Monolítico - Difícil de mantener
+// ❌ Monolithic - Hard to maintain
 function App() {
-  // 500+ líneas de código
+  // 500+ lines of code
 }
 
-// ✅ Modular - Fácil de escalar
+// ✅ Modular - Easy to scale
 <Modal>
   <ItemForm>
     <Input />
@@ -137,105 +137,105 @@ function App() {
 </Modal>
 ```
 
-Beneficios:
-- Reutilizables en otros proyectos
-- Testeable cada componente
-- Mantenimiento sencillo
-- Onboarding de nuevos devs
+Benefits:
+- Reusable in other projects
+- Testable per component
+- Simple maintenance
+- Easy onboarding for new devs
 
-### ¿Por qué useInventory hook?
+### Why useInventory hook?
 
 ```jsx
-// Centraliza toda la lógica de estado
+// Centralizes all state logic
 const { items, loading, error, addItem, updateItem, deleteItem } = useInventory();
 
-// Componentes sin lógica compleja
+// Components without complex logic
 <InventoryTable items={items} onEdit={handleEditItem} />
 ```
 
-**Ventajas**:
-- Separación de concerns
-- Testing más fácil
-- Reutilizable en múltiples componentes
-- Lógica independiente de UI
+**Advantages**:
+- Separation of concerns
+- Easier testing
+- Reusable across components
+- Logic independent from UI
 
 ## 🔌 API Endpoints
 
 ### GET `/api/items`
-Obtiene todos los items del inventario.
+Get all inventory items.
 
 **Response:**
 ```json
 [
-  { "id": 1, "name": "Jabón", "quantity": 50, "description": "..." },
+  { "id": 1, "name": "Soap", "quantity": 50, "description": "..." },
   { "id": 2, "name": "Shampoo", "quantity": 20, "description": "..." }
 ]
 ```
 
 ### POST `/api/items`
-Crea un nuevo item.
+Create a new item.
 
 **Request:**
 ```json
 {
-  "name": "Producto Nuevo",
+  "name": "New Product",
   "quantity": 25,
-  "description": "Detalles"
+  "description": "Details"
 }
 ```
 
 ### PUT `/api/items/:id`
-Actualiza un item existente.
+Update an existing item.
 
 **Request:**
 ```json
 {
-  "name": "Nombre actualizado",
+  "name": "Updated Name",
   "quantity": 30,
-  "description": "Nueva descripción"
+  "description": "New Description"
 }
 ```
 
 ### DELETE `/api/items/:id`
-Elimina un item del inventario.
+Delete an item from inventory.
 
-## 🧪 Próximos Pasos (Fase 2-4)
+## 🧪 Next Steps (Phase 2-4)
 
-- [ ] **Fase 2**: Conectar a SQLite para persistencia
-- [ ] **Fase 3**: Agregar autenticación
-- [ ] **Fase 4**: Deploy a producción (Vercel + Render)
+- [ ] **Phase 2**: Connect to SQLite for persistence
+- [ ] **Phase 3**: Add authentication
+- [ ] **Phase 4**: Deploy to production (Vercel + Render)
 
-## 💻 Comandos Disponibles
+## 💻 Available Commands
 
 ```bash
-# Desarrollo
-npm run dev       # Inicia Vite dev server
+# Development
+npm run dev       # Start Vite dev server
 
-# Producción
-npm run build     # Build para producción
-npm run preview   # Preview de build
+# Production
+npm run build     # Build for production
+npm run preview   # Preview of build
 
 # Linting
-npm run lint      # Ejecutar ESLint
+npm run lint      # Run ESLint
 ```
 
-## 📝 Notas de Desarrollo
+## 📝 Development Notes
 
-- Los datos se guardan en memoria (se pierden al reiniciar el servidor)
-- Fase 2 migrará a SQLite para persistencia
-- El CORS está habilitado para frontend en puerto 5173
+- Data is stored in memory (lost on server restart)
+- Phase 2 will migrate to SQLite for persistence
+- CORS is enabled for frontend on port 5173
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
 **Allan Umana**
 - GitHub: [@aumana-dev](https://github.com/aumana-dev)
 - Email: allan.umana@outlook.com
 
-## 📄 Licencia
+## 📄 License
 
-MIT License - Libre para usar, modificar y distribuir
+MIT License - Free to use, modify and distribute
 
 ---
 
-**Versión:** 1.0.0  
-**Última actualización:** Enero 2026
+**Version:** 1.0.0  
+**Last updated:** January 2026

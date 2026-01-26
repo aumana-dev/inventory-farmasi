@@ -1,0 +1,27 @@
+// Prisma Schema for Farmasi Inventory Management  
+// Database: SQLite (for local dev) / PostgreSQL (for production)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Product Model
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  category    String
+  quantity    Int      @default(0)
+  price       Float
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([quantity])
+  @@map("products")
+}

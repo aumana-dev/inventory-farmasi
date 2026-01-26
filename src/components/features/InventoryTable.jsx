@@ -48,7 +48,7 @@ function InventoryTable({ items, onEdit, onDelete }) {
 
   return (
     <div className="table-container">
-      <table>
+      <table className="inventory-table">
         <thead>
           <tr>
             <th>{t('product')}</th>

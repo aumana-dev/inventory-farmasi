@@ -1,9 +1,9 @@
 /**
  * API Service - Communication with Express backend
- * Base URL: http://localhost:5000/api
+ * Base URL: Production API on Render
  */
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://inventory-farmasi.onrender.com/api';
 
 export const inventoryAPI = {
   /**

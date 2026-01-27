@@ -1,17 +1,53 @@
 /**
  * App.jsx - Main component
- * Farmasi Beauty Inventory - Distributor Management App
+ * Farmasi Beauty Inventory - Distributor Management App with Multi-user Support
  */
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useInventory } from './hooks/useInventory';
 import InventoryTable from './components/features/InventoryTable';
 import ItemForm from './components/features/ItemForm';
 import { Modal } from './components/ui/Modal';
 import { Button } from './components/ui/Button';
+import { Auth } from './components/Auth';
 import { useLanguage } from './contexts/LanguageContext';
+import { authAPI } from './services/auth-api';
 import './App.css';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const user = authAPI.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+    setAuthChecked(true);
+  }, []);
+
+  const handleLogin = (user) => {
+    setCurrentUser(user);
+  };
+
+  const handleLogout = () => {
+    authAPI.logout();
+    setCurrentUser(null);
+  };
+
+  // Show auth screen if not logged in
+  if (!authChecked) {
+    return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>⏳ Cargando...</div>;
+  }
+
+  if (!currentUser) {
+    return <Auth onLogin={handleLogin} />;
+  }
+
+  return <InventoryApp user={currentUser} onLogout={handleLogout} />;
+}
+
+function InventoryApp({ user, onLogout }) {
   const { items, loading, error, addItem, updateItem, deleteItem } = useInventory();
   const { language, toggleLanguage, t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -223,7 +259,7 @@ function App() {
 
       {/* Footer */}
       <footer className="app-footer">
-        <p>© 2026 Farmasi Inventory | Made with 💕 for Beauty Distributors</p>
+        <p>© 2026 Farmasi Inventory | Made with 💕 for Beauty Distributors | Usuario: {user.username} <button onClick={onLogout} style={{marginLeft: '1rem', padding: '0.25rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'white', cursor: 'pointer'}}>🚪 Salir</button></p>
       </footer>
     </div>
   );

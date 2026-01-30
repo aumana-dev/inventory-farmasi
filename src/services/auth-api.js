@@ -27,7 +27,7 @@ export const authAPI = {
   login: async (username, password) => {
     const users = storage.getArray('users');
     const user = users.find(u => u.username === username && u.password === password);
-    
+
     if (user) {
       storage.setCurrentUser({ username: user.username, id: user.id });
       return { success: true, user: { username: user.username, id: user.id } };
@@ -37,7 +37,7 @@ export const authAPI = {
 
   register: async (username, password) => {
     const users = storage.getArray('users');
-    
+
     if (users.find(u => u.username === username)) {
       return { success: false, message: 'El usuario ya existe' };
     }
@@ -53,8 +53,87 @@ export const authAPI = {
     storage.set('users', users);
     storage.setCurrentUser({ username: newUser.username, id: newUser.id });
 
-    // Initialize empty inventory for new user
-    storage.set(`inventory_${newUser.id}`, []);
+    // Initialize inventory with sample products for new user
+    const sampleInventory = [
+      {
+        id: Date.now() + 1,
+        name: 'CC Cream SPF 20',
+        description: 'Crema correctora con protección solar',
+        category: 'makeup',
+        quantity: 15,
+        price: 18.99,
+        minStock: 5,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 2,
+        name: 'Volumax Mascara',
+        description: 'Máscara de pestañas volumen intenso',
+        category: 'makeup',
+        quantity: 8,
+        price: 14.99,
+        minStock: 5,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 3,
+        name: 'Aqua Intense Serum',
+        description: 'Serum hidratante con ácido hialurónico',
+        category: 'skincare',
+        quantity: 20,
+        price: 24.99,
+        minStock: 5,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 4,
+        name: 'VIP Gold Perfume',
+        description: 'Eau de Parfum 50ml - Floral Oriental',
+        category: 'fragrance',
+        quantity: 3,
+        price: 45.99,
+        minStock: 5,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 5,
+        name: 'Keratin Therapy Shampoo',
+        description: 'Shampoo reparador con keratina',
+        category: 'haircare',
+        quantity: 12,
+        price: 16.99,
+        minStock: 5,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 6,
+        name: 'Body Butter Vanilla',
+        description: 'Manteca corporal hidratante de vainilla',
+        category: 'bodycare',
+        quantity: 0,
+        price: 12.99,
+        minStock: 5,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      },
+      {
+        id: Date.now() + 7,
+        name: 'Collagen Plus',
+        description: 'Suplemento de colágeno en polvo 300g',
+        category: 'nutrition',
+        quantity: 18,
+        price: 34.99,
+        minStock: 5,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }
+    ];
+    storage.set(`inventory_${newUser.id}`, sampleInventory);
 
     return { success: true, user: { username: newUser.username, id: newUser.id } };
   },
@@ -79,7 +158,7 @@ export const inventoryAPI = {
   create: async (itemData) => {
     const user = storage.getCurrentUser();
     if (!user) throw new Error('No user logged in');
-    
+
     const items = storage.getArray(`inventory_${user.id}`);
     const newItem = {
       ...itemData,
@@ -87,7 +166,7 @@ export const inventoryAPI = {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
-    
+
     items.push(newItem);
     storage.set(`inventory_${user.id}`, items);
     return newItem;
@@ -96,18 +175,18 @@ export const inventoryAPI = {
   update: async (id, itemData) => {
     const user = storage.getCurrentUser();
     if (!user) throw new Error('No user logged in');
-    
+
     const items = storage.getArray(`inventory_${user.id}`);
     const index = items.findIndex(item => item.id === id);
-    
+
     if (index === -1) throw new Error('Item not found');
-    
+
     items[index] = {
       ...items[index],
       ...itemData,
       updatedAt: new Date().toISOString()
     };
-    
+
     storage.set(`inventory_${user.id}`, items);
     return items[index];
   },
@@ -115,7 +194,7 @@ export const inventoryAPI = {
   delete: async (id) => {
     const user = storage.getCurrentUser();
     if (!user) throw new Error('No user logged in');
-    
+
     const items = storage.getArray(`inventory_${user.id}`);
     const filtered = items.filter(item => item.id !== id);
     storage.set(`inventory_${user.id}`, filtered);

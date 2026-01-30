@@ -259,7 +259,7 @@ function InventoryApp({ user, onLogout }) {
 
       {/* Footer */}
       <footer className="app-footer">
-        <p>© 2026 Farmasi Inventory | Made with 💕 for Beauty Distributors | Usuario: {user.username} <button onClick={onLogout} style={{marginLeft: '1rem', padding: '0.25rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'white', cursor: 'pointer'}}>🚪 Salir</button></p>
+        <p>© 2026 Farmasi Inventory | Made with 💕 for Beauty Distributors | Usuario: {user.username} <button onClick={onLogout} style={{ marginLeft: '1rem', padding: '0.25rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'white', cursor: 'pointer' }}>🚪 Salir</button></p>
       </footer>
     </div>
   );

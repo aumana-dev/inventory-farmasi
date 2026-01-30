@@ -27,7 +27,7 @@ export function Auth({ onLogin }) {
 
     try {
       const { authAPI } = await import('../services/auth-api.js');
-      const result = isLogin 
+      const result = isLogin
         ? await authAPI.login(username, password)
         : await authAPI.register(username, password);
 
